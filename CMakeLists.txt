@@ -17,18 +17,19 @@ include_directories("SFML/include/")	# добавляем директории
 include_directories("inc/")
 link_directories("SFML/lib/")	
 
-add_executable("${PROJECT_NAME}" sfml.cpp
+add_executable("${PROJECT_NAME}" sfml.cpp Game.h Game.cpp)
 
-        Game.h Game.cpp)
+file(COPY "materials" DESTINATION "/")
+file(COPY "fonts" DESTINATION "/")
 											
-target_link_libraries("${PROJECT_NAME}" sfml-graphics-s-d
-						  sfml-window-s-d
-						  sfml-system-s-d
+target_link_libraries("${PROJECT_NAME}" sfml-graphics-s
+						  sfml-window-s
+						  sfml-system-s
 						  opengl32
 						  freetype
 						  winmm
 						  gdi32
-						  sfml-audio-s-d
+						  sfml-audio-s
 						  openal32
 						  flac
 						  vorbisenc
@@ -36,5 +37,3 @@ target_link_libraries("${PROJECT_NAME}" sfml-graphics-s-d
 						  vorbis
 						  ogg)
 						  
-file(COPY "materials" DESTINATION "/")
-file(COPY "fonts" DESTINATION "/")
