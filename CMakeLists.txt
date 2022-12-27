@@ -1,4 +1,5 @@
 ﻿cmake_minimum_required(VERSION 3.15) # Проверка версии CMake.
+SET(CMAKE_CONFIGURATION_TYPES "Release")
 									 # Если версия установленой программы
 									 # старее указаной, произайдёт аварийный выход.
 
