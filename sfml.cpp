@@ -12,7 +12,7 @@ int main()
 	// Текст с биндами
 	sf::Text text("F2 - New Game | Esc - Exit | Arrow keys - Move tiles", font, 20);
 	text.setFillColor(sf::Color::Blue);
-	text.setPosition(5.f, 5.f);
+	text.setPosition(50.f, 5.f);
 
 	// Создаем объект игры
 	Game game;

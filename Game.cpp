@@ -118,11 +118,7 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
 			shape.setOutlineColor(sf::Color::Cyan);
 			text.setFillColor(sf::Color::Cyan);
 		}
-		else if (elements[i] == i + 1)
-		{
-			// Цвет плашки в правильном месте
-			text.setFillColor(sf::Color::Green);
-		}
+
 		if (elements[i] > 0)
 		{
 			// Координаты плашек для рендера
@@ -133,6 +129,7 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
 				image_Texture.setTexture(arrayTexture[elements[i]-1]);
 			target.draw(image_Texture, states);
 			target.draw(shape, states);
+			if (SIZE > 4)
 			target.draw(text, states);
 		}
 	}
