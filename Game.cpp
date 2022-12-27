@@ -1,23 +1,23 @@
 #include "Game.h"
 Game::Game()
 {
-	// Çàãðóæàåì øðèôò èç ïàïî÷êè fonts, ñïàñèáî Source Engine çà òî, ÷òî ïðèó÷èë ìåíÿ âñå ðàñêèäûâàòü ïî îòäåëüíûì ïàïî÷êàì
-	font.loadFromFile("fonts/calibrib.ttf");
+	// Загружаем шрифт из папочки fonts, спасибо Source Engine за то, что приучил меня все раскидывать по отдельным папочкам
+	font.loadFromFile("fonts/calibrib.ttf"); 
 	Init();
 }
 
 void Game::Init()
 {
-	// Çàëèâàåì ìàññèâ ñ ïëàøå÷êàìè
+	// Заливаем массив с плашечками
 	for (int i = 0; i < ARRAY_SIZE - 1; i++) elements[i] = i + 1;
-	empty_index = ARRAY_SIZE - 1;	// Ïóñòàÿ ïëàøêà (øïåéîí) — â ïîñëåäíåì ýëåìåíòå ìàññèâà
-	elements[empty_index] = 0;	// Ïóñòàÿ ïëàøêà èìååò çíà÷åíèå = 0
+	empty_index = ARRAY_SIZE - 1;	// Пустая плашка (шпейон) — в последнем элементе массива
+	elements[empty_index] = 0;	// Пустая плашка имеет значение = 0
 	solved = true;
 }
 
 bool Game::Check()
 {
-	// Ñîáðàíà ëè ãîëîâîëîìêà? (Check (îò àíãë.) — ïðîâåðÿòü, ïðîâåðêà)
+	// Собрана ли головоломка? (Check (от англ.) — проверять, проверка)
 	for (unsigned int i = 0; i < ARRAY_SIZE; i++)
 	{
 		if (elements[i] > 0 && elements[i] != i + 1) return false;
@@ -27,18 +27,18 @@ bool Game::Check()
 
 void Game::Move(Direction direction)
 {
-	// Êàêàÿ ïëàøêà ïóñòàÿ???????
+	// Какая плашка пустая???????
 	int col = empty_index % SIZE;
 	int row = empty_index / SIZE;
 
-	// Ïîèñê ïîäõîäÿùåé ïëàøêè
+	// Поиск подходящей плашки
 	int move_index = -1;
 	if (direction == Direction::Left && col < (SIZE - 1)) move_index = empty_index + 1;
 	if (direction == Direction::Right && col > 0) move_index = empty_index - 1;
 	if (direction == Direction::Up && row < (SIZE - 1)) move_index = empty_index + SIZE;
 	if (direction == Direction::Down && row > 0) move_index = empty_index - SIZE;
 
-	// Ïåðåìåùåíèå ïëàøêè íà ñâîáîäíîå ìåñòî
+	// Перемещение плашки на свободное место
 	if (empty_index >= 0 && move_index >= 0)
 	{
 		int tmp = elements[empty_index];
@@ -92,15 +92,15 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		arrayTexture[14].loadFromFile("materials/SIZE4/image_part_015.jpg");
 	}
 
-	// Ðàìêà èãðîîãî ïîëÿ (1 "ýòàæ")
+	// Рамка игроого поля (1 "этаж")
 	sf::RectangleShape shape(sf::Vector2f(FIELD_SIZE, FIELD_SIZE));
 	shape.setOutlineThickness(2.f);
 	shape.setOutlineColor(color);
 	shape.setFillColor(sf::Color::Transparent);
 	target.draw(shape, states);
 
-	// Ðàìêà äëÿ îòðèñîâêè ïëàøåê (2 "ýòàæ")
-	shape.setSize(sf::Vector2f(CELL_SIZE - 2 , CELL_SIZE - 2));
+	// Рамка для отрисовки плашек (2 "этаж")
+	shape.setSize(sf::Vector2f(CELL_SIZE - 2, CELL_SIZE - 2));
 	shape.setOutlineThickness(2.f);
 	shape.setOutlineColor(color);
 	shape.setFillColor(sf::Color::Transparent);
@@ -114,24 +114,23 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		text.setString(std::to_string(elements[i]));
 		if (solved)
 		{
-			// Öâåò âñåé ðåøåííîé ãîëîâîëîìêè
+			// Цвет всей решенной головоломки
 			shape.setOutlineColor(sf::Color::Cyan);
 			text.setFillColor(sf::Color::Cyan);
 		}
-		}
 		if (elements[i] > 0)
 		{
-			// Êîîðäèíàòû ïëàøåê äëÿ ðåíäåðà
+			// Координаты плашек для рендера
 			sf::Vector2f position(i % SIZE * CELL_SIZE + 10.f, i / SIZE * CELL_SIZE + 10.f);
 			shape.setPosition(position);
 			text.setPosition(position.x + 30.f + (elements[i] < 10 ? 15.f : 0.f), position.y + 25.f);
-				image_Texture.setPosition(position);
-				image_Texture.setTexture(arrayTexture[elements[i]-1]);
+			image_Texture.setPosition(position);
+			image_Texture.setTexture(arrayTexture[elements[i] - 1]);
 			target.draw(image_Texture, states);
 			target.draw(shape, states);
 			if (SIZE > 4)
 			{
-			target.draw(text, states);
+				target.draw(text, states);
 			}
 		}
 	}
