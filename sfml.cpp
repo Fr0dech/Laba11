@@ -1,25 +1,25 @@
-#include <SFML/Graphics.hpp>
+п»ї#include <SFML/Graphics.hpp>
 #include "Game.h"
 
 int main()
 {
-	// Делаем окошко X на X и частотой обновления 60 FPS
+	// Р”РµР»Р°РµРј РѕРєРѕС€РєРѕ X РЅР° X Рё С‡Р°СЃС‚РѕС‚РѕР№ РѕР±РЅРѕРІР»РµРЅРёСЏ 60 FPS
 	sf::RenderWindow window(sf::VideoMode(705, 705), "Tiles Game");
 	window.setFramerateLimit(60);
 
 	sf::Font font;
 	font.loadFromFile("fonts/calibrib.ttf");
-	// Текст с биндами
-	sf::Text text("F2 - New Game | Esc - Exit | Arrow keys - Move tiles", font, 20);
+	// РўРµРєСЃС‚ СЃ Р±РёРЅРґР°РјРё
+	sf::Text text("Esc - Exit | R - Shuffle | в†ђв†‘в†“в†’ - Move tiles", font, 20);
 	text.setFillColor(sf::Color::Blue);
 	text.setPosition(50.f, 5.f);
 
-	// Создаем объект игры
+	// РЎРѕР·РґР°РµРј РѕР±СЉРµРєС‚ РёРіСЂС‹
 	Game game;
 	game.setPosition(50.f, 50.f);
 
 	sf::Event event;
-	int move_counter = 0;	// Счетчик случайных ходов для перемешивания головоломки
+	int move_counter = 0;	// РЎС‡РµС‚С‡РёРє СЃР»СѓС‡Р°Р№РЅС‹С… С…РѕРґРѕРІ РґР»СЏ РїРµСЂРµРјРµС€РёРІР°РЅРёСЏ РіРѕР»РѕРІРѕР»РѕРјРєРё
 
 	while (window.isOpen())
 	{
@@ -28,25 +28,25 @@ int main()
 			if (event.type == sf::Event::Closed) window.close();
 			if (event.type == sf::Event::KeyPressed)
 			{
-				// Ну тут всё понятно, бинды на кнопки стрелочки, Esc
+				// РќСѓ С‚СѓС‚ РІСЃС‘ РїРѕРЅСЏС‚РЅРѕ, Р±РёРЅРґС‹ РЅР° РєРЅРѕРїРєРё СЃС‚СЂРµР»РѕС‡РєРё, Esc
 				if (event.key.code == sf::Keyboard::Escape) window.close();
 				if (event.key.code == sf::Keyboard::Left) game.Move(Direction::Left);
 				if (event.key.code == sf::Keyboard::Right) game.Move(Direction::Right);
 				if (event.key.code == sf::Keyboard::Up) game.Move(Direction::Up);
 				if (event.key.code == sf::Keyboard::Down) game.Move(Direction::Down);
-				// Шаффл пластинок на бинд F2
-				if (event.key.code == sf::Keyboard::F2)
+				// РЁР°С„С„Р» РїР»Р°СЃС‚РёРЅРѕРє РЅР° Р±РёРЅРґ F2
+				if (event.key.code == sf::Keyboard::R)
 				{
-					game.Init();		// Это короче перед решаффлом он сбрасывает положение пластинок
-					move_counter = 100;	// Это количество решаффлов при перемешке
+					game.Init();		// Р­С‚Рѕ РєРѕСЂРѕС‡Рµ РїРµСЂРµРґ СЂРµС€Р°С„С„Р»РѕРј РѕРЅ СЃР±СЂР°СЃС‹РІР°РµС‚ РїРѕР»РѕР¶РµРЅРёРµ РїР»Р°СЃС‚РёРЅРѕРє
+					move_counter = 100;	// Р­С‚Рѕ РєРѕР»РёС‡РµСЃС‚РІРѕ СЂРµС€Р°С„С„Р»РѕРІ РїСЂРё РїРµСЂРµРјРµС€РєРµ
 				}
 			}
 		}
 
-		// Если счетчик ходов больше нуля, продолжаем шаффлить головоломку
+		// Р•СЃР»Рё СЃС‡РµС‚С‡РёРє С…РѕРґРѕРІ Р±РѕР»СЊС€Рµ РЅСѓР»СЏ, РїСЂРѕРґРѕР»Р¶Р°РµРј С€Р°С„С„Р»РёС‚СЊ РіРѕР»РѕРІРѕР»РѕРјРєСѓ
 		if (move_counter-- > 0) game.Move((Direction)(rand() % 4));
 
-		// Чистим прошлое положение плиток, и рисуем новое
+		// Р§РёСЃС‚РёРј РїСЂРѕС€Р»РѕРµ РїРѕР»РѕР¶РµРЅРёРµ РїР»РёС‚РѕРє, Рё СЂРёСЃСѓРµРј РЅРѕРІРѕРµ
 		window.clear();
 		window.draw(game);
 		window.draw(text);
