@@ -10,7 +10,7 @@ int main()
 	sf::Font font;
 	font.loadFromFile("fonts/calibrib.ttf");
 	// Текст с биндами
-	sf::Text text("Esc - Exit | R - Shuffle | ←↑↓→ - Move tiles", font, 20);
+	sf::Text text("Esc - Exit | R - Shuffle | <v^> - Move tiles", font, 20);
 	text.setFillColor(sf::Color::Blue);
 	text.setPosition(50.f, 5.f);
 
