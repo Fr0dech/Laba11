@@ -1,10 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-const int SIZE = 4;						// Скока многа плашек в строчке
+const int SIZE = 7;						// Скока многа плашек в строчке
 const int ARRAY_SIZE = SIZE * SIZE;		// Скока многа плашек вообще
-const int FIELD_SIZE = 141 * SIZE;		// Размера поля в пикселях, скейлится от кол-ва плашек в строчке
-const int CELL_SIZE = 141;				// Размер плашки в пикселях
+const int FIELD_SIZE = 564;		// Размера поля в пикселях, скейлится от кол-ва плашек в строчке
+const int CELL_SIZE = 564 / SIZE;				// Размер плашки в пикселях
 
 enum class Direction { Left = 0, Right = 1, Up = 2, Down = 3 };
 
